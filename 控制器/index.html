@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html ng-app="myapp"> 
+<head>
+	<title></title>
+	<script type="text/javascript" src="../js/Angular.js"></script>
+</head>
+<body>
+	<div ng-controller="FirstController">
+		<h4>The simplest adding machine ever</h4>
+		<button ng-click="add(1)" class="button">Add</button>
+		<button ng-click="subtarct(1)" class="button">Jian</button>
+		<h4>Current count:{{ counter }}</h4>
+	</div>
+	<script type="text/javascript">
+		var app=angular.module("myapp",[]);
+		app.controller("FirstController",function($scope){
+			$scope.counter=0;
+			$scope.add=function(amount){$scope.counter+=amount;}
+			$scope.subtarct=function(amount){$scope.counter-=amount;}
+		})
+	</script>
+</body>
+</html>
