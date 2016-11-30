@@ -14,10 +14,12 @@
 	<script type="text/javascript">
 		var app=angular.module("myapp",[]);
 		app.controller("FirstController",function($scope){
+			//定义函数和变量
 			$scope.counter=0;
 			$scope.add=function(amount){$scope.counter+=amount;}
 			$scope.subtarct=function(amount){$scope.counter-=amount;}
 		})
+		
 	</script>
 </body>
 </html>
