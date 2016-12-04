@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../js/Angular.js"></script>
+	</head>
+	<body>
+		<div ng-controller="MyController">
+			<input type="text"
+					type="email"
+					placeholder="Recipient" />
+			<textarea ng-model="emailBody"name="" id="" cols="30" rows="10"></textarea>
+			<pre>{{ previewText}}</pre>
+		</div>
+		
+		<script>
+			angular.module('myApp',[])
+			.controller('MyController',function($scope,$interpolate){
+				$scope.$watch('emailBody',function(body){
+
+					if(body){
+						//获取数据表达式。
+						var template=$interpolate(body);
+						console.log(template);
+						$scope.previewText=
+							template({to:$scope.to});
+					}
+				})
+			})
+		</script>
+	</body>
+</html>

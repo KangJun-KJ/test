@@ -1,0 +1,36 @@
+<html ng-app="myApp">
+
+	<head>
+		<title></title>
+		<script src="../js/Angular.js"></script>
+	</head>
+
+<body>
+		<!--使用{{}}来绑定表达式
+		可以使数字的运算，也可以是变量名的运算，也可以读取对象中的字符。-->
+
+		<div ng-controller="MyController">
+
+			<h1>{{1+1}}</h1>
+			<input type="text" ng-model="exper" placeholder="Enter an expression" />
+			<h2>{{parsedValue}}</h2>
+		</div>
+
+		<script>
+			angular.module('myApp', [])
+				.controller('MyController', function($scope, $parse) {
+					//$watch用来监听ng-model绑定的数据变化。
+					$scope.$watch('exper', function(newVal, oldVal, scope) {
+
+						if(newVal !== oldVal) {
+							//解析数据表达式
+							var parseFun = $parse('exper');
+
+							$scope.parsedValue = parseFun(scope);
+						}
+					})
+				})
+		</script>
+	</body>
+
+</html>

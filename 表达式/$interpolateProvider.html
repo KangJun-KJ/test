@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../js/Angular.js"></script>
+	</head>
+
+	<body>
+		<h1>__ 1+1 __</h1>
+		<div id="emailEditor" ng-controller="MyController">
+			<input ng-model="to" type="email" placeholder="Recipient" />
+			<textarea ng-model="emailBody"></textarea>
+
+			<div id="emailPreview">
+				<pre>__ previewText __</pre>
+				<h1>__ 1+1 __</h1>
+			</div>
+		</div>
+
+		<script>
+			angular.module('myApp', ['emailParser'])
+				.controller('MyController', ['$scope', 'EmailParser',
+					function($scope, EmailParser) {
+						$scope.to = 'ari@fullstack.io';
+						$scope.emailBody = 'Hello __to__';
+						// Set up a watch
+						$scope.$watch('emailBody', function(body) {
+							if(body) {
+								$scope.previewText =
+									EmailParser.parse(body, {
+										to: $scope.to
+									});
+							}
+						});
+					}
+				]);
+			//创建一个模块、
+			angular.module('emailParser', [])
+				.config(['$interpolateProvider',
+					function($interpolateProvider) {
+						//修改表示符号，改成__ __本来是{{}}
+						$interpolateProvider.startSymbol('__');//开始标识符
+						$interpolateProvider.endSymbol('__');//结尾标识符
+					}
+				])
+				.factory('EmailParser', ['$interpolate',
+					function($interpolate) {
+						// a service to handle parsing
+						return {
+							parse: function(text, context) {
+								var template = $interpolate(text);
+								return template(context);
+							}
+						};
+					}
+				]);
+		</script>
+	</body>
+
+</html>
