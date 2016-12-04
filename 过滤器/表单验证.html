@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../js/Angular.js"></script>
+	</head>
+	<body>
+		
+		
+		<form action=""name="form" novalidate>
+			<label for=""name="email">Your email</label>
+			<input type="email"name="email"ng-model="email" placeholder="Email Address" />
+			
+		</form>
+		
+		1、必填项：<input type="text" required>
+		2、最小长度：<input type="text" ng-minlength="5"><br />
+		3、最大长度：<input type="text" ng-maxlength="20"><br />
+		4、模式匹配：<input type="text" ng-pattern="[a-zA-Z]"><br />
+		5、电子邮件: <input type="email" name="email" ng-model="user.email" /><br />	
+		6、数字: <input type="name" name="name" ng-model="user.age" /><br />	
+		7、URL: <input type="url" name="homepage" ng-model="user.fackbook_url" /><br />	
+		
+		9.在表单中控制变量<br />
+		
+		forName指的最外层的form表单的名字；
+		inputFieldName指的是input的name
+		forName.inputFiledName.property:
+		forName.inputFieldName.$pristine;//未修改过的表单 只要用户修改过表单，无论输入是否通过验证都返回false
+		forName.inputFieldName.$dirty;	//表单被填写过，就会返回true
+		forName.inputFieldName.$valid;//表单的内容是否合法，合法就是true
+		forName.inputFieldName.$invalid;//表单内容是否合法，不合法则为true
+		forName.inputFieldName.$error;//它包含当前表单的所有验证内容，以及他们是否合法的信息。
+		
+		可以对照这个例子来查看！！
+		http://www.runoob.com/try/try.php?filename=try_ng_validate
+		<script>
+			angular.module('myApp',[])
+			
+		</script>
+	</body>
+</html>

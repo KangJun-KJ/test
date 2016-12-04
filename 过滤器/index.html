@@ -1,0 +1,79 @@
+<html ng-app>
+
+	<head>
+		<title></title>
+		<script src="../js/Angular.js"></script>
+	</head>
+
+<body>
+		<!--使用{{}}来绑定表达式
+		可以使数字的运算，也可以是变量名的运算，也可以读取对象中的字符。-->
+
+
+
+			<h1>{{1+1}}</h1>
+		
+			<!--1、currency-->
+			<!--//设置两位小数的美元货币格式，也可以自定义货币符号。-->
+			<h1>{{	123123 | currency}}</h1>
+			
+			2、date<br /><br />
+			<!--日期格式-->
+			
+			3、filter
+			<!--会过滤出来符合条件的元素
+			//过滤出包含e的字母
+			{{ [......] | filter:e}}
+			可以自定义函数过滤-->
+			{{['Ari','likes','to','travel'] |filter:isCapitalized}}
+			$scope.isCapitalized=function(str){
+				return str[0]==str[0].toUpperCase();
+			}
+			<br /><br />
+			
+			4、json
+			<!--json过滤器可以将一个json或者JavaScript对象转换成字符串。-->
+			
+			<br /><br />
+			
+			5.limitTo
+			<!--limitTo过滤器会根据传入的参数生成一个新的数组或字符串，新的数组长度取决传入的参数
+			根据传入的参数来判断是从前面还是从后面截取
+			传入数字的大小来判断截取字符串的长度。-->
+			{{ San Francisco is very cloudy |limitTo:3}}
+			<!--//截取前三个字符：San-->
+			{{ San Francisco is very cloudy |limitTo:-6}}
+			<!--//从后开始截取6个字符串：cloundy-->
+			
+			<br /><br />
+			
+			6、lowercase
+			<!--将字符串转为小写。-->
+			<br /><br />
+			
+			
+			7、number
+			<!--将数字格式化成文本，第二参数可选，用来控制小数点后面截取的位数-->
+			{{123456789 |number}}
+			 <!--123,456,789-->
+			
+			
+			8、orderBy 数组排序
+			可以根据对象的某个键值来排序。
+			
+			9、uppercase
+			将字符串改为大写形式。
+			
+			自定义过滤器
+			创建一个模块用以在应用中进行引用
+			
+			angular.module('myApp',[])
+			.filter('capitalize',function(){
+				return function(input){
+					if!(input) return input[0].toUpperCase()+input.slice(1);
+				}
+			})
+			
+	</body>
+
+</html>
