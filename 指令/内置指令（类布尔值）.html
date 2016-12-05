@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src='../js/Angular.js'></script>
+	</head>
+	<body> 
+		<!--1、ng-href只会在链接的生成的才可以点击 href会直接跳转 在使用动态属性创建URL时-->
+		<a ng-href="{{myHref}}">I'm felling lucky,when I load</a>
+		<a href="{{myHref}}">I'm feeling 404</a>
+		
+		<!--2、ng-src 会告诉浏览器在对应表达式正式生效之前不要加载图像-->
+		<br /><br />
+		<h1>Wrong Way</h1>
+		<img src="{{imgSrc}}" alt="" /> 
+		<!--会报错，没有该路径的图片-->
+		
+		<h2>RightWay</h2>
+		<img ng-src="{{imgSrc}}" alt="" />
+		
+		<script>
+			angular.module('myApp',[])
+			.run(function($rootScope,$timeout){
+				$timeout(function(){
+					$rootScope.myHref="http://www.baidu.com";
+					
+					$rootScope.imgSrc="http://pic55.nipic.com/file/20141208/19462408_171130083000_2.jpg"
+				},2000);
+				
+
+			})
+
+		</script>
+	</body>
+</html>

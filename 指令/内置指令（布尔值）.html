@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src='../js/Angular.js'></script>
+	</head>
+
+	<body>
+		<!--1、ng-disabled  元素：input textarea select button-->
+		<h1>Demo 1:</h1>
+		<input type="text" ng-model="someProperty" placeholder="Type to Enable">
+		<button ng-model="button" ng-disabled="zsomeProperty">A Button</button>
+
+		<h1>Demo 2:</h1>
+		<textarea ng-disabled="isDisabled">Wait 1 second</textarea>
+		
+		<!--2、ng-readonly  检查ng-readonly的值是否会出现从而进行数据绑定--><br/><br/>
+		Type here to make sibling readonly:
+		<input type="text" ng-model="someProperty2" /><br/>
+		<input type="text" ng-readonly="someProperty2" value="当上面有值的时候，只读状态" />
+		
+		<!--3、ng-checked 布尔值 根据checked属性是否勾选选项--> 
+		<br /><br />
+		<label >someProperty={{someProperty}}</label>
+		<input type="checkbox"
+			ng-checked="someProperty" 
+			ng-init="someProperty=true"
+			ng-model="someProperty"/>
+			
+			
+		<!--4、ng-selected 布尔值 如果为true则该option为选中项-->	
+		<br /><br />
+		<label >Select Two Fish:{{ isTwoFish }}</label>
+		<input type="checkbox" ng-model="isTwoFish" /><br />
+		<select name="" id="">
+			<option >One Fish</option>
+			<option ng-selected="isTwoFish">Two Fish1</option>
+		</select>
+		<script>
+			// JS for demo 2:
+			angular.module('myApp', [])
+				.run(function($rootScope, $timeout) {
+					$rootScope.isDisabled = true;
+					$timeout(function() {
+						$rootScope.isDisabled = false;
+					}, 1000);
+				});
+		</script>
+	</body>
+
+</html>
