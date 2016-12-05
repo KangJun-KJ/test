@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src='../js/Angular.js'></script>
+	</head>
+	<body>
+		1、任何具有ng-app的DOM元素将被标记为$rootScope的起始点。整个文档只允许使用一次ng-app;
+		<br /><br />
+		
+		2、ng-controller
+		<!--父元素的相同的变量设置会影响到下面的所有子元素，而子元素不会影响到下面的元素。-->
+		<!--controller会创建一个属于自己的作用域，$scope-->
+		<div ng-controller="SomeController">
+			{{someBareValue}}
+			<button ng-click="someAction()">Communicate to child</button>
+			<div ng-controller="ChildController">
+				{{someBareValue}}
+				 <button ng-click="childAction()">Communicate to parent</button>
+			</div>
+		</div>
+		
+		<h3>如果将模型对象的某个对象设置为字符串，他会通过将引用进行共享，因此在子$scope中
+			修改父$scope中的这个属性。既通过父级与子元素相同的对象属性将实现一起改变值。
+			这个例子无论你点击哪个按钮都会实现，两个字符串的改变。
+		</h3>
+		<div ng-controller="SomeController2">
+			{{someModel.someValue}}
+			<button ng-click="someAction()">Communicate to child</button>
+			<div ng-controller="ChildController2">
+				{{someModel.someValue}}
+				 <button ng-click="childAction()">Communicate to parent</button>
+			</div>
+		</div>
+		<script>
+			angular.module('myApp',[])
+			.controller('SomeController',function($scope){
+				//反模式裸值
+				$scope.someBareValue="hello computer";
+				$scope.someAction=function(){
+					//这样父元素的设置，会导致下面的同名的子元素跟着变化、
+					$scope.someBareValue="hello human,from parent";
+				}
+			})
+			.controller('ChildController',function($scope){
+				$scope.childAction=function(){
+					//子控制器设置，不会影响到父级元素。
+					$scope.someBareValue="hello human,from child";
+				}
+			})
+			.controller('SomeController2',function($scope){
+				//最佳实践，永远使用一个模型
+				$scope.someModel={
+					someValue:'hello computer'
+				}
+				$scope.someAction=function(){
+					$scope.someModel.someValue="hello human,from parent";
+				}
+			})
+			.controller('ChildController2',function($scope){
+				$scope.childAction=function(){
+					$scope.someModel.someValue="hello human,from child";
+				}
+			})
+		</script>
+	</body>
+	
+</html>

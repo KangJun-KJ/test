@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../js/Angular.js"></script>
+	</head>
+
+	<body>
+		11、ng-cloak
+		<!--除使用ng-bind避免未渲染元素闪烁，还可以在含有{{}}的元素上使用ng-cloak指令-->
+		<div ng-init="greeting='HelloWorld'">
+			<p ng-cloak>{{greeting}}</p>
+		</div>
+		<hr /><br /> 12、ng-bind-template 同ng-bind指令类似，ng-bind-template用来在视图中绑定多个表达式。
+		<div ng-bind-template="{{message}}{{name}}">
+		</div>
+		<hr /><br /> 13、ng-model ng-model指令用来将input select textarea 或自定义表单空间包含他们的作用域的属性进行绑定 应该尽量使用ngModel来绑定$scope上一个数据模型内的属性。、 例如：
+		<input type="text" ng-model="modelName.someProperty" /><br /> 而不应该直接使用$scope.someProperty这种用法
+		<hr /><br /> 14、ng-show/ng-hide
+		<h4>根据所给表达式的值来显示或隐藏HTML元素。
+				ng-show为true显示
+				ng-hide为true隐藏
+			</h4>
+		<div ng-show="2+2===5">
+			2+2 is not 5,do not show
+		</div>
+		<div ng-show="2+2===4">
+			2+2 is 4,do show
+		</div>
+		<div ng-hide="2+2===5">
+			2+2 is not 5,do not show
+		</div>
+		<div ng-hide="2+2===4">
+			2+2 is 4,do show
+		</div>
+
+		<hr /><br />
+		 15、ng-change
+		<!--这个指令会在表单输入发生变化时，计算给定表达式的值。
+			因为要处理表单输入，这个要和ng-model一起使用-->
+		<div ng-controller="EquationController">
+			<!--用ng-model绑定input中输入的内容 然后通过改变内容来触发ng-change事件-->
+			<input type="text" ng-model="equation.x" ng-change="change()" />
+			<code>{{equation.output}}</code>
+		</div>
+		<hr /><br />
+		
+		17、ng-click
+			用来指定一个元素被点击时调用的方法或者表达式
+			
+		<hr /><br />
+		
+		18、ng-select
+			可以使用数组或者对象作为数据源，之前有select的例子
+			
+		<hr /><br />
+		19、ng-submit
+		用来将表达式同onsubmit事件进行绑定。这个指令同时会组织默认行为。前提是表单不含有action属性
+		即使是action=""都不可以
+		<br />
+		<form  ng-submit="submit()"
+			ng-controller="FormController">
+			Enter text and hit enter:
+			<input type="text" ng-model="person.name" name="person.name" />
+			<input  type="submit" name="person.name" value="Submit" />
+			<code>people={{people}}</code>
+			<ul ng-repeat="(index,object) in people">
+				<li>{{object.name}}</li>
+			</ul>
+		</form>
+		
+		<hr /><br />
+
+		20、ng-class
+		<h4>ng-class动态设置元素的类，方法是<strong>绑定一个代表所有需要添加的类的表达式</strong></h4>
+		
+		<hr /><br />
+		21、ng-attr-(suffix)
+		<h3>当AngularJS编译DOM时会查找花括号{{some expression}}内的表达式
+		这些表达式会自动注册到$watch服务中心并更新到$digest循环中，成为他的部分
+		但是浏览器对属性进行了很苛刻的限制比如svg:</h3>
+		
+		<svg>
+			<circle cx="{{cx}}"></circle>
+		</svg>
+		<!--上面的例子会报错Error: <circle> attribute cx: Expected length, "{{cx}}".-->
+			
+		<svg>
+			<circle ng-attr-cx="{{cx}}"></circle>
+		</svg>
+		<!--这样写才可以达到前面的目的-->
+		
+		<hr /><br /><br /><br /><br /><br />
+		<script>
+			angular.module('myApp', [])
+				.controller('EquationController', function($scope) {
+					$scope.equation = {};
+					$scope.change = function() {
+						$scope.equation.output = Number($scope.equation.x) + 2;
+					};
+				})
+				.controller('FormController',function($scope){
+					console.log(123123);
+					$scope.person={
+						name:null
+					};
+					$scope.people=[];
+					$scope.submit=function(){
+						if($scope.person.name){
+							$scope.people.push({name:$scope.person.name});
+							$scope.person.name="";
+						}
+					}
+					
+				})
+		</script>
+	</body>
+
+</html>

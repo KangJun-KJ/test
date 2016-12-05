@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../js/Angular.js"></script>
+	</head>
+	<style>
+		.ood{
+			background-color:blue;
+		}
+		.even{
+			background-color:red;
+		}
+	</style>
+	<body>
+		3。ng-include 引用html文件没有测试过。
+		<ng-include src="filename" onload="expression" autoscroll="expression"></ng-include>
+		<!--filename	文件名，可以使用表达式来返回文件名。
+		onload	可选， 文件载入后执行的表达式。
+		autoscroll	可选，包含的部分是否在指定视图上可滚动。-->
+		<hr />
+		4、ng-switch ng-switch-when 根据当前选择项显示
+		<h1>切换下面选项卡  显示对应不同的选项</h1>
+		<select ng-model="myVar" name="" id="">
+			<option value="runoob">runoob.com</option>
+			<option value="google">google.com</option>
+			<option value="taobao">taobao.com</option>
+		</select>
+		<div ng-switch="myVar">
+			<div ng-switch-when="runoob">
+				<h1>菜鸟教程</h1>
+				<p>欢迎访问菜鸟教程</p>
+			</div>
+			<div ng-switch-when="google">
+				<h1>Google</h1>
+				<p>欢迎访问Google</p>
+			</div>
+			<div ng-switch-when="taobao">
+				<h1>淘宝</h1>
+				<p>欢迎访问淘宝</p>
+			</div>
+			<div ng-switch-default>
+				<h1>切换</h1>
+				<p>选择不同选项显示对应的值。</p>
+			</div>
+		</div>
+		<hr /><br />
+		5、ng-view在后面会详细说明
+		<hr /><br />
+		6、ng-if
+		<!--当一个元素被ng-if从DMO中移出，同他向关联的作用域也会销毁
+		而且当他重新加入DOM中时，会通过原型继承从它的父作用域生成一个新的作用域-->
+		
+		<div ng-if="2+2===5">
+			won not see this DOM node,not even in the source code
+		</div>
+		<div ng-if="2+2===4">
+			Hi , I do exist
+		</div>
+		<hr /><br />
+		7、ng-repeat
+		<!--ng-repeat用来遍历一个集合或为集合中的每一个元素生成一个模板
+		实例。集合中的每个元素都会被赋予自己的模板和作用域。同时每个
+		模板实例的作用中都会暴露一些特殊的属性。-->
+<!--		
+		$index 遍历的进度 [0,length-1]
+		$first:当元素遍历的第一个时值true
+		$middle:当元素处在第一个元素和最后一个元素之间时为true
+		$last:当元素遍历的最后一个时值为true
+		$even:当$index值是偶数时值为true
+		$odd:当$index值是奇数时值为true-->
+		
+		<ul ng-controller='PeopleController'>
+			<li ng-repeat="person in people" ng-class="{even:!$even,odd:!$odd}">
+				{{person.name}}lives in {{person.city}}
+			</li>
+		</ul>
+		
+		<hr /><br />
+		8、ng-init
+		<!--用来在指令被调用时设置内部作用域的初始状态-->
+		<div ng-init="greeting='Hello';person='World'">
+			{{greeting}}<=>{{person}}
+		</div>
+		<hr /><br />
+		9、{{}}
+		AngularJs内置的模板愈发，它会在内部$scope和视图之间创建绑定。
+		基于这个绑定，只要$scope发生变化，视图就会随之自动更新。
+		注意：在屏幕可视区域内使用会导致页面加载时未渲染的元素发生闪烁，用ng-bind可以避免这个问题。
+		<hr /><br />
+		10、ng-bind
+		同上面的{{}}的用法
+		用ng-bind将内容同元素绑定在一起避免FOUC，内容会被当做子文本节点渲染到含有ng-bind指令的元素内。
+		<hr /><br /><br /><br /><br /><br /><br /><br /><br />
+		<script>
+			angular.module('myApp', [])
+			.controller('PeopleController',function($scope){
+				$scope.people=[
+				{name:"张鑫",city:"河北"}
+				,{name:'康俊',city:'安徽'}
+				,{name:'阿洛罗康',city:"四川"}
+				,{name:"赵耀",city:"西安"}
+				]
+			})
+		</script>
+	</body>
+
+</html>
