@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../js/Angular.js"></script>
+	</head>
+
+	<body>
+		<!--<div ng-init="someProperty='some data'" >
+			<div ng-init="siblingProperty='more data'">
+				Inside Div two:{{aThirdProperty}}
+				<div ng-init="aThirdProperty='data for 3rd property'" ng-controller='someController'>
+					Inside Div Three:{{ aThirdProperty}}
+					<div ng-init="aFourthProperty">
+						Inside Div four:{{ aThirdProperty }}
+					</div>
+				</div>
+			</div>
+		</div>-->
+		<div  ng-init="someProperty = 'some data'"></div>
+		<div ng-init="siblingProperty = 'more data'">
+			Inside Div Two: {{ aThirdProperty }}
+			<div ng-init="aThirdProperty = 'data for 3rd property'" ng-controller="SomeCtrl">
+				Inside Div Three: {{ aThirdProperty }}
+				<div ng-controller="SecondCtrl">
+					Inside Div Four: {{ aThirdProperty }}
+					<br> Outside myDirective: {{ myProperty }}
+					<div my-directive ng-init="myProperty = 'wow, this is cool'">
+						Inside myDirective: {{ myProperty }}
+						<div>
+						</div>
+					</div>
+				</div>
+				<script>
+					angular.module('myApp', [])
+						.controller("SomeCtrl", function() {
+
+						})
+						.controller('SecondCtrl', function($scope) {
+							// also can be empty
+						})
+						.directive('myDirective', function() {
+							return {
+								restrict: 'A',
+								scope: true
+							}
+						})
+				</script>
+	</body>
+
+</html>
