@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src='../js/Angular.js'></script>
+	</head>
+	<body>
+		transclude嵌入的意思，配合ng-transclude使用
+		将引用的directive的子元素添加到使用ng-transclude的元素当中。
+		可以重复使用这个组件	
+		<div sidebox title="Links">
+			<ul>
+				<li>First link</li>
+				<li>Second link</li>
+			</ul>
+		</div>
+		<div sidebox title="TagCloud">
+			<div class='tagcloud'>
+				<a href="">111111111</a>
+				<a href="">222222222</a>
+				<a href="">333333333</a>
+				<a href="">444444444</a>
+			</div>
+		</div>
+
+		<script>
+			angular.module('myApp',[])
+			.directive('sidebox',function(){
+				return {
+					restrict:"EA",
+					scope:{
+						title:"@"
+					},
+					transclude:true,
+					template:'<div class="sidebox"> \
+							<div class="content"> \
+							<h2 class="header">{{title}}</h2>\
+							<span class="content" ng-transclude> \
+							</span> \
+							</div> \
+							</div>'
+				};
+			})
+		</script>
+	</body>
+</html>
