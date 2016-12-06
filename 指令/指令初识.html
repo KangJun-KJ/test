@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src='../js/Angular.js'></script>
+	</head>
+
+	<body>
+		<my-directive></my-directive>			
+		<div my-directive></div>
+		<div class='my-directive'></div>
+		<!--//三种指令的声明方式对应下面的E、A、C
+		//本质是在HTML中通过元素、属性、类或注释调用制定。
+		//使用属性方式有比较好的跨浏览器兼容性-->
+		<!-- directive:my-directive  -->
+		<div></div>
+		<script>
+			angular.module('myapp', [])
+			//驼峰命名法:上面自定义标签的名字出第一个字符其他字符首字符都要大写。外加一个函数
+				.directive("myDirective", function() {
+					return {
+						//元素(E)、属性(A)、类(C)、注释(M)  
+						restrict: "EAC",
+						replace:true,//返回的template包裹在自定义标签内，replace等于true表示取代自定义标签。
+						template: "<a href='http://www.baidu.com'> Click Me to BaiDu</a>"
+					}
+				})
+		</script>
+	</body>
+
+</html>
