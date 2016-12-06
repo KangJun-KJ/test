@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src='../js/Angular.js'></script>
+	</head>
+	<body>
+		
+		<script>
+			angular.module('myApp',[])
+			.directive('myDirective',function(){
+				return {
+					//可选参数，告诉指令在DOM被何种形式声明
+					//E(元素)、A(属性 默认值)、C(类名)、M(注释)
+					restrict:string,
+					//优先值(数值型) 例如ngRepeat优先值是1000，是所有指令最高的。相同优先值的指令先声明的先执行。
+					priority:Number,
+					//布尔型，用来告诉AngularJS停止运行当前元素上比本指令优先级低的指令。
+					//书上的例子：ngView和ngIf，ngIf的优先级略高与ngView,当ngIf是true的时候ngView会执行
+					//当ngIg为false则ngView不会显示。
+					termianl:Boolean,
+					//字符串或函数
+					//一段html文本
+					//接受两个参数的函数，参数为tElement何tAttrs,返回一个代表模板的字符串。
+					template:String or Template Function:
+							function(tElement,tAttrs)(..},
+					//字符串或函数
+					templateUrl:String,
+					//布尔型，当被设置成true的时候回完全覆盖掉之前的元素。
+					replace:Boolean or String,
+					
+					scope:Boolean or Object,
+					transclude:Boolean,
+					controller:String or
+						function(scope,element,attrs,transclude,otherInjecttabls){..}
+					require:string
+					link:function(scope,iElement,iAttrs){...}.
+					compile://返回一个对象或链接函数
+				}
+			})
+		</script>
+	</body>
+</html>
