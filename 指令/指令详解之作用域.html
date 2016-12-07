@@ -8,6 +8,10 @@
 	</head>
 
 	<body>
+	
+	<h1>这里面有两个例子，分别是scope设置成true或者false的时候，一个是在子作用域中定义一个myProperty影响父作用域的myProperty属性，另一个相反。
+			
+这两个例子很好的说明了scope作用域的关系</h1>				
 		<!--<div ng-init="someProperty='some data'" >
 			<div ng-init="siblingProperty='more data'">
 				Inside Div two:{{aThirdProperty}}
@@ -19,6 +23,7 @@
 				</div>
 			</div>
 		</div>-->
+				
 		<div  ng-init="someProperty = 'some data'"></div>
 		<div ng-init="siblingProperty = 'more data'">
 			Inside Div Two: {{ aThirdProperty }}
