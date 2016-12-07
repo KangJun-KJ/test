@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src='../js/Angular.js'></script>
+	</head>
+	<body>
+		<!--<div ng-controller='MyController'></div>-->
+		
+		<script>
+			var app=angular.module('myApp',[]);
+			app.controller('MyController',function(){
+				
+			})	
+			//1、annotate()返回一个数组，数组元素在调用时被注入到目标函数中的服务的名称
+			var injector=angular.injector(['ng','myApp']);
+//			injector.annotate(function($q,MyController){});
+			
+			//2、get()返回一个服务实例
+			injector.get('$scope');
+			
+			//3、has()判断服务注册列表中是否存在改服务
+			
+			//4、instantiate() 可以创建某个JavaScript类型的实例，接受两个参数
+//			Type(函数)  locals(对象可选)
+	
+
+			
+		</script>
+	</body>
+</html>

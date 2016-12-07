@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../js/Angular.js"></script>
+	</head>
+
+	<body>
+		<div ng-app>
+			<div ng-controller="MyController">
+				<p ng-cloak>{{clock.time | date: "yyyy-MM-dd hh:mm:ss"}}</p>
+			</div>
+		</div>
+		<script>
+			//推断式注入，直接将要依赖的参数传进去，会通过toString()方法，分期并提取出函数参数列表，然后通过$injector将这些参数注入进对象实例
+			//注意：代码不可以被压缩。
+			function MyController($scope, $timeout) {
+				var updateTime = function() {
+					$scope.clock = {
+						time: new Date()
+					};
+					$timeout(function() {
+						$scope.clock.time = new Date();
+						updateTime();
+					}, 1000);
+				}
+				updateTime();
+			}
+		</script>
+	</body>
+
+</html>
+<!-- 参考博客 https://segmentfault.com/a/1190000002786133-->
