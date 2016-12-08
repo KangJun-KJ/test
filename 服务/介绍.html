@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>服务介绍</title>
+		<script src='../js/Angular.js'> </script>
+	</head>
+	<body>
+		服务在每个应用中只会被实例化一次。
+		并且延迟加载
+		1、factory()方法是创建服务和配置服务最快的方式，接收两个参数。
+			name(字符串)：注册服务的名字。getFn(函数)：创建服务实施的时候会被调用。
+			.factory('name',function(){
+				return {
+					'username':'auser'
+				}
+			})
+			服务是单例对象，getFn()在应用生命周期内只会被调用一次。	
+			同其他AngularJs服务一样 在定义服务时，可以接受一个包含可被注入对象的数组或函数
+			一定要return一个object的对象。
+			.factory('name',['$http',function($http){
+				return {
+					getUserEvent:function(){
+						//...
+					}
+				}
+			}]);
+		factory必须返回一个对象，不然后报错。
+		2、service()可以注册一个支持构造函数的服务，接受两个函数;
+		在控制功能比较多的时候使用services.
+		name(字符串):注册服务名称  constructor(函数)：调用它来实例化服务对象
+													通过nwe 关键字来实例化，添加到this上面。只会被实例化一次。
+		var Person=function($hhtp){
+			this.getName=function(){
+				return $http({mehod:"GET",url:"/api/user"});
+			}
+		}
+		angular.service("name",Person);
+			
+		3、所有的服务的都是用provider注册的。因此provider可以完成所有的服务的功能。
+		通过$get方法创建服务
+		如果希望对服务进行配置，必须使用provider注册服务
+		具体可以额参考下面这个blog
+		http://blog.csdn.net/evankaka/article/details/51114953
+		
+		
+		constant()和value()来设置一个常量和值
+		constarnt常量不可变 value()值可变
+		constant可以注册到配置函数 	value不可以
+		angular.module(['myApp'],[])
+		.constant("apikey","123132231")
+		.config(function(apikey){
+			//在这里apikey可以被赋值为123123123，就像上面一样
+		})
+		.value("Fbid".'12312312')
+		.config(function("Fbid"){
+			//将抛出来一个错误，未知provider:FBid
+		})
+		
+		
+	</body>
+</html>

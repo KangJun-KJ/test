@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../js/Angular.js"></script>
+	</head>
+
+	<body>
+
+		<div ng-controller="myCtrl">
+			<button ng-click="getPrivate()">按钮一</button>
+			<button ng-click="getPUbluc()">按钮二</button>
+		</div>
+		<div ng-controller="myCtrl2">
+		</div>
+		<script>
+			var app = angular.module('myApp', []);
+			app.controller('myCtrl', function($scope, myFactory) {
+				$scope.getPrivate = function() {
+					alert(myFactory.getPrivate());
+				};
+				$scope.getPUbluc = function() {
+					alert(myFactory.variable);
+				};
+			});
+			app.controller('myCtrl2', function($scope, myFactory) {
+
+			});
+			app.factory('myFactory', function() {
+				console.log('instance myFactory');		//一开始进去就被运行了。
+				var factory = {};
+				var privateValue = "I am Private";
+				factory.variable = "This is public";
+				factory.getPrivate = function() {
+					return privateValue;
+				};
+				return factory;		//一定在最后以对象的形式将这个服务返回去
+			});
+		</script>
+	</body>
+
+</html>

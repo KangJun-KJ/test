@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh" ng-app="myApp">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>AngularJS学习</title>
+		<script type="text/javascript" src="../js/Angular.js"></script>
+	</head>
+
+	<body>
+
+		<body ng-controller="TestController">
+
+			<p>greeting from provider: {{name}}</p>
+			<p>defaultName: , config to: {{defaultName}}</p>
+		</body>
+
+		<script>
+			var app = angular.module('myApp', []);
+			app.provider('MyProvider', function() {
+				// default name is 'anonymous';
+				var defaultName = 'anonymous';
+				var name = defaultName;
+				// setName can be called duaring module init
+				this.setName = function(newName) {
+					console.log('我进来了');
+					name = newName;
+				}
+
+				this.$get = function() {
+					var result = {};
+					result.greeting = 'Hello from provider';
+
+					result.name = name;
+					result.defaultName = defaultName;
+					return result;
+				}
+			})
+			//provider()方法在文本添加Provider生成了一个新提供者
+			//比如上面的provider服务的名字是：MyProvider那么传给config的时候要在后面添加一个Provider;组成了MyProviderProvider;
+			app.config(function(MyProviderProvider) {
+				//通过执行setName方法改变name的名字。在配置函数中执行。
+				MyProviderProvider.setName('Angularjs Provider');
+			});
+			//通过行内注入的方式注入服务。
+			app.controller('TestController', ['$scope', 'MyProvider', function($scope, myProvider) {
+
+				$scope.greetingFromProvider = myProvider.greeting;
+
+				$scope.defaultName = myProvider.defaultName;
+				//将name设置成myProvider的里面的名字
+				$scope.name = myProvider.name
+			}]);
+		</script>
+	</body>
+
+</html>

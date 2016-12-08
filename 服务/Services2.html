@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="../js/Angular.js"></script>
+</head>
+<body style="padding:10px;" ng-app="app">
+	<div ng-controller="FCtrl">
+		<input type="text"  ng-model="data.msg">
+		<h2>{{data.msg}}</h2>
+	</div>
+	<div ng-controller="SCtrl">
+		<input type="text"  ng-model="data.msg">
+		<h2>{{data.msg}}</h2>
+	</div>
+
+	<script type="text/javascript">
+		angular.module('app',[])
+		.factory('Data',function(){
+			return {
+				msg:"我来自factory",
+				shopcart:['1','2']
+			}
+		})
+		.controller('FCtrl',function($scope,Data){
+			$scope.data=Data;
+		})
+		.controller('SCtrl',function($scope,Data){
+			$scope.data=Data;
+		})
+	</script>
+</body>
+</html>

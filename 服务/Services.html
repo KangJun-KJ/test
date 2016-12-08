@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src='js/Angular.js'></script>
+</head>
+<body style="padding:10px;" ng-app="app"> 
+<div ng-controller="MyCtrl">
+	<h1>{{realname}}</h1>
+	<h2>{{http}}</h2>
+	<h2>{{data.msg}}</h2>
+	<h2>{{uname}}</h2>
+	
+</div>
+<script type="text/javascript">
+	angular.module('app',[])
+	.value("realname","kangjun")//是可以改变的
+	.value("realname","wangwu")
+	.constant("http","www.baidu.com")//是不可以改变的
+	.constant("http","www.sohu.com")
+	.factory('Data',function(){
+		var kj="kjbu2";
+		return {
+			msg:kj,
+			setMsg:function(){	
+				this.msg="我不好";
+			}
+		}
+	})
+	.service("User",function(){
+		this.firstname="上官";
+		this.lastname="飞燕";
+		this.getName=function(){
+			return this.firstname+this.lastname;
+		}
+	})							//引用value定义的realname服务 //引用constant定义的服务http
+								//引用factory工厂定义的Data服务，应用User定义的服务
+	.controller("MyCtrl",function($scope,realname,http,Data,User){
+		$scope.msg="hello";
+		$scope.realname=realname;
+		$scope.http=http;
+		$scope.data=Data;		
+//		console.log(Data); 	//Data是对象 有一个msg属性和一个函数属性。
+//		Data.setMsg();		//调用里面的函数方法 将msg改为我不好。
+		$scope.uname=User.getName();	//使用service里面的getName方法
+//		$scope.uname=User.firstname;	//可以直接调用service中的属性。
+	})
+</script>
+</body>
+</html>
